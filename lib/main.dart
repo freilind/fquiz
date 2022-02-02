@@ -44,6 +44,7 @@ class RadialMenu extends StatefulWidget {
 class _RadialMenuState extends State<RadialMenu>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late RadialAnimation radialAnimation;
 
   @override
   void initState() {
@@ -54,7 +55,9 @@ class _RadialMenuState extends State<RadialMenu>
 
   @override
   Widget build(BuildContext context) {
-    return RadialAnimation(controller: _controller);
+    radialAnimation = RadialAnimation(controller: _controller);
+    radialAnimation.execute();
+    return radialAnimation;
   }
 }
 
@@ -81,6 +84,8 @@ class RadialAnimation extends StatelessWidget {
   final Animation<double> scale;
   final Animation<double> translation;
   final Animation<double> rotation;
+  IconData iconMenuButton = FontAwesomeIcons.bookOpen;
+  Color colorMenuButton = Colors.blue;
 
   @override
   Widget build(BuildContext context) {
@@ -93,39 +98,40 @@ class RadialAnimation extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 _buildButton(0,
-                    color: Colors.red,
-                    icon: FontAwesomeIcons.thumbtack,
+                    color: Colors.amberAccent,
+                    icon: FontAwesomeIcons.js,
                     id: '1'),
                 _buildButton(45,
-                    color: Colors.green,
-                    icon: FontAwesomeIcons.sprayCan,
-                    id: '2'),
+                    color: Colors.red, icon: FontAwesomeIcons.angular, id: '2'),
                 _buildButton(90,
-                    color: Colors.orange, icon: FontAwesomeIcons.fire, id: '3'),
+                    color: Colors.grey,
+                    icon: FontAwesomeIcons.database,
+                    id: '3'),
                 _buildButton(135,
-                    color: Colors.blue,
-                    icon: FontAwesomeIcons.kiwiBird,
-                    id: '4'),
+                    color: Colors.blue, icon: FontAwesomeIcons.react, id: '4'),
                 _buildButton(180,
-                    color: Colors.black, icon: FontAwesomeIcons.cat, id: '5'),
+                    color: Colors.deepOrange,
+                    icon: FontAwesomeIcons.html5,
+                    id: '5'),
                 _buildButton(225,
-                    color: Colors.indigo, icon: FontAwesomeIcons.paw, id: '6'),
+                    color: Colors.amber, icon: FontAwesomeIcons.aws, id: '6'),
                 _buildButton(270,
-                    color: Colors.pink, icon: FontAwesomeIcons.bong, id: '7'),
+                    color: Colors.blue, icon: FontAwesomeIcons.java, id: '7'),
                 _buildButton(315,
-                    color: Colors.yellow, icon: FontAwesomeIcons.bolt, id: '8'),
-                Transform.scale(
+                    color: Colors.green, icon: FontAwesomeIcons.leaf, id: '8'),
+                /*Transform.scale(
                   scale: scale.value - 1.5,
                   child: FloatingActionButton(
                     child: const Icon(FontAwesomeIcons.bookOpen),
                     onPressed: () => _close(),
                     backgroundColor: Colors.red,
                   ),
-                ),
+                ),*/
                 Transform.scale(
                   scale: scale.value,
                   child: FloatingActionButton(
-                    child: const Icon(FontAwesomeIcons.bookOpen),
+                    backgroundColor: colorMenuButton,
+                    child: Icon(iconMenuButton),
                     onPressed: _open,
                   ),
                 )
@@ -147,16 +153,25 @@ class RadialAnimation extends StatelessWidget {
       child: FloatingActionButton(
         child: Icon(icon),
         backgroundColor: color,
-        onPressed: () => _close(id: id),
+        onPressed: () => _close(id: id, color: color, icon: icon),
       ),
     );
+  }
+
+  execute() {
+    _open();
   }
 
   _open() {
     controller.forward();
   }
 
-  _close({String? id}) async {
+  _close(
+      {required String id,
+      required Color color,
+      required IconData icon}) async {
+    iconMenuButton = icon;
+    colorMenuButton = color;
     await controller.reverse();
     if (id != null) print(id);
   }
