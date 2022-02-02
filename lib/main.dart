@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vector_math/vector_math.dart' as vector;
 
 void main() {
   runApp(const MyApp());
@@ -13,103 +17,147 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Scaffold(
+        body: Container(
+            decoration: const BoxDecoration(
+              color: Color.fromRGBO(255, 255, 255, 0.5),
+              image: DecorationImage(
+                image: AssetImage("/images/bckg.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: const SizedBox.expand(child: RadialMenu())),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+class RadialMenu extends StatefulWidget {
+  const RadialMenu({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<StatefulWidget> createState() => _RadialMenuState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _RadialMenuState extends State<RadialMenu>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 900), vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+    return RadialAnimation(controller: _controller);
+  }
+}
+
+class RadialAnimation extends StatelessWidget {
+  RadialAnimation({Key? key, required this.controller})
+      : scale = Tween<double>(
+          begin: 1.5,
+          end: 0.0,
+        ).animate(
+            CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn)),
+        translation = Tween<double>(
+          begin: 0.0,
+          end: 100.0,
+        ).animate(
+            CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn)),
+        rotation = Tween<double>(
+          begin: 0.0,
+          end: 360.0,
+        ).animate(CurvedAnimation(
+            parent: controller, curve: const Interval(0.0, 0.7))),
+        super(key: key);
+
+  final AnimationController controller;
+  final Animation<double> scale;
+  final Animation<double> translation;
+  final Animation<double> rotation;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+        animation: controller,
+        builder: (context, builder) {
+          return Transform.rotate(
+            angle: vector.radians(rotation.value),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                _buildButton(0,
+                    color: Colors.red,
+                    icon: FontAwesomeIcons.thumbtack,
+                    id: '1'),
+                _buildButton(45,
+                    color: Colors.green,
+                    icon: FontAwesomeIcons.sprayCan,
+                    id: '2'),
+                _buildButton(90,
+                    color: Colors.orange, icon: FontAwesomeIcons.fire, id: '3'),
+                _buildButton(135,
+                    color: Colors.blue,
+                    icon: FontAwesomeIcons.kiwiBird,
+                    id: '4'),
+                _buildButton(180,
+                    color: Colors.black, icon: FontAwesomeIcons.cat, id: '5'),
+                _buildButton(225,
+                    color: Colors.indigo, icon: FontAwesomeIcons.paw, id: '6'),
+                _buildButton(270,
+                    color: Colors.pink, icon: FontAwesomeIcons.bong, id: '7'),
+                _buildButton(315,
+                    color: Colors.yellow, icon: FontAwesomeIcons.bolt, id: '8'),
+                Transform.scale(
+                  scale: scale.value - 1.5,
+                  child: FloatingActionButton(
+                    child: const Icon(FontAwesomeIcons.bookOpen),
+                    onPressed: () => _close(),
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+                Transform.scale(
+                  scale: scale.value,
+                  child: FloatingActionButton(
+                    child: const Icon(FontAwesomeIcons.bookOpen),
+                    onPressed: _open,
+                  ),
+                )
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+          );
+        });
+  }
+
+  _buildButton(double angle,
+      {required Color color, required IconData icon, required String id}) {
+    final double radian = vector.radians(angle);
+    return Transform(
+      transform: Matrix4.identity()
+        ..translate(
+          (translation.value) * cos(radian),
+          (translation.value) * sin(radian),
         ),
+      child: FloatingActionButton(
+        child: Icon(icon),
+        backgroundColor: color,
+        onPressed: () => _close(id: id),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  _open() {
+    controller.forward();
+  }
+
+  _close({String? id}) async {
+    await controller.reverse();
+    if (id != null) print(id);
   }
 }
