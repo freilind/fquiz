@@ -10,13 +10,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
           decoration: const BoxDecoration(
-            color: Color.fromRGBO(255, 255, 255, 0.5),
             image: DecorationImage(
               image: AssetImage("/images/bckg.png"),
               fit: BoxFit.cover,
             ),
           ),
           child: const SizedBox.expand(child: RadialMenu())),
+      appBar: AppBar(
+          title: Text('FQu!z', style: Theme.of(context).textTheme.headline1)),
     );
   }
 }
