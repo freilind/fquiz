@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
           ),
           child: const SizedBox.expand(child: RadialMenu())),
       appBar: AppBar(
-          title: Text('FQu!z', style: Theme.of(context).textTheme.headline1)),
+          title: Text('FQu!z', style: Theme.of(context).textTheme.headline4)),
     );
   }
 }

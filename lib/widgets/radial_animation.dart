@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fquiz/data/categories.dart';
+import 'package:fquiz/providers/category_provider.dart';
+import 'package:fquiz/screens/quiz_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:vector_math/vector_math.dart' as vector;
 
 class RadialAnimation extends StatelessWidget {
@@ -40,7 +43,7 @@ class RadialAnimation extends StatelessWidget {
             angle: vector.radians(rotation.value),
             child: Stack(
               alignment: Alignment.center,
-              children: [..._buildButtons(), buildTransform()],
+              children: [..._buildButtons(context), buildTransform()],
             ),
           );
         });
@@ -58,7 +61,7 @@ class RadialAnimation extends StatelessWidget {
     );
   }
 
-  _buildButtons() {
+  _buildButtons(context) {
     var buttons = [];
     double angle = -45;
     categoriesList.forEach((category) {
@@ -73,11 +76,17 @@ class RadialAnimation extends StatelessWidget {
             (translation.value) * sin(radian),
           ),
         child: FloatingActionButton(
+          heroTag: map['id'],
           child: Icon(IconData(map['icon'],
               fontFamily: map['fontFamily'],
               fontPackage: 'font_awesome_flutter')),
           backgroundColor: Color(map['color']),
-          onPressed: () => _close(category: map),
+          onPressed: () {
+            var categoryProvider =
+                Provider.of<CategoryProvider>(context, listen: false);
+            categoryProvider.category = category;
+            _close(ctx: context, category: map);
+          },
         ),
       ));
     });
@@ -92,11 +101,12 @@ class RadialAnimation extends StatelessWidget {
     controller.forward();
   }
 
-  _close({required Map<String, dynamic> category}) async {
+  _close({required ctx, required Map<String, dynamic> category}) async {
     iconMenuButton = category['icon'];
     fontMenuButton = category['fontFamily'];
     colorMenuButton = category['color'];
     await controller.reverse();
-    if (category['id'] != null) print(category['id']);
+    Navigator.of(ctx).pushNamed(QuizScreen.routeName, arguments: '');
+    //if (category['id'] != null) print(category['id']);
   }
 }
