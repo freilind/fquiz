@@ -24,10 +24,12 @@ class MyApp extends StatelessWidget {
           builder: (ctx, auth, _) => (MaterialApp(
                   theme: ThemeData(
                       primarySwatch: Colors.pink,
-                      primaryColor: Colors.green,
-                      primaryColorLight: Colors.blue,
-                      primaryColorDark: Colors.blueGrey,
+                      primaryColor: Colors.pink,
+                      primaryColorLight: Colors.blueGrey,
+                      primaryColorDark: Colors.red,
                       textTheme: ThemeData.light().textTheme.copyWith(
+                          bodyText1: const TextStyle(
+                              color: Colors.white, fontSize: 20.0),
                           headline4: const TextStyle(
                               fontFamily: 'Pacifico',
                               color: Colors.white,
