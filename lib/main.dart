@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fquiz/providers/auth_provider.dart';
 import 'package:fquiz/providers/category_provider.dart';
+import 'package:fquiz/providers/questions_provider.dart';
+import 'package:fquiz/screens/QuizScreen.dart';
 import 'package:fquiz/screens/home_screen.dart';
-import 'package:fquiz/screens/quiz_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: AuthProvider()),
         ChangeNotifierProvider.value(value: CategoryProvider()),
+        ChangeNotifierProvider.value(value: QuestionsProvider()),
       ],
       child: Consumer<AuthProvider>(
           builder: (ctx, auth, _) => (MaterialApp(
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
                               letterSpacing: 0.5))),
                   home: const HomeScreen(),
                   routes: {
-                    QuizScreen.routeName: (_) => const QuizScreen(),
+                    QuizScreen.routeName: (_) => QuizScreen(),
                   }))),
     );
   }

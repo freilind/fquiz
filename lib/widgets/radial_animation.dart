@@ -2,9 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fquiz/data/categories.dart';
+import 'package:fquiz/data/questionsList.dart';
+import 'package:fquiz/models/category.dart';
+import 'package:fquiz/models/option.dart';
+import 'package:fquiz/models/question.dart';
 import 'package:fquiz/providers/category_provider.dart';
-import 'package:fquiz/screens/quiz_screen.dart';
+import 'package:fquiz/providers/questions_provider.dart';
+import 'package:fquiz/screens/quiz_screen2.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import 'package:vector_math/vector_math.dart' as vector;
 
 class RadialAnimation extends StatelessWidget {
@@ -33,6 +39,8 @@ class RadialAnimation extends StatelessWidget {
   int iconMenuButton = 0xf518;
   int colorMenuButton = 0xFF2196F3;
   String fontMenuButton = 'FontAwesomeSolid';
+  late List<Question> _questions = [];
+  var uuid = const Uuid();
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +69,10 @@ class RadialAnimation extends StatelessWidget {
     );
   }
 
-  _buildButtons(context) {
+  _buildButtons(BuildContext context) {
     var buttons = [];
     double angle = -45;
-    categoriesList.forEach((category) {
-      var map = category.toMap();
+    for (var category in categoriesList) {
       angle += 45;
       final double radian = vector.radians(angle);
 
@@ -76,20 +83,21 @@ class RadialAnimation extends StatelessWidget {
             (translation.value) * sin(radian),
           ),
         child: FloatingActionButton(
-          heroTag: map['id'],
-          child: Icon(IconData(map['icon'],
-              fontFamily: map['fontFamily'],
+          heroTag: category.id,
+          child: Icon(IconData(category.icon,
+              fontFamily: category.fontFamily,
               fontPackage: 'font_awesome_flutter')),
-          backgroundColor: Color(map['color']),
+          backgroundColor: Color(category.color),
           onPressed: () {
             var categoryProvider =
                 Provider.of<CategoryProvider>(context, listen: false);
             categoryProvider.category = category;
-            _close(ctx: context, category: map);
+            _buildQuestion(context, category);
+            _close(ctx: context, category: category);
           },
         ),
       ));
-    });
+    }
     return buttons;
   }
 
@@ -101,12 +109,35 @@ class RadialAnimation extends StatelessWidget {
     controller.forward();
   }
 
-  _close({required ctx, required Map<String, dynamic> category}) async {
-    iconMenuButton = category['icon'];
-    fontMenuButton = category['fontFamily'];
-    colorMenuButton = category['color'];
+  _close({required ctx, required Category category}) async {
+    iconMenuButton = category.icon;
+    fontMenuButton = category.fontFamily;
+    colorMenuButton = category.color;
     await controller.reverse();
-    Navigator.of(ctx).pushNamed(QuizScreen.routeName, arguments: '');
-    //if (category['id'] != null) print(category['id']);
+    Navigator.of(ctx).pushNamed(QuizScreen2.routeName, arguments: '');
+  }
+
+  Future<void> _buildQuestion(BuildContext ctx, Category category) async {
+    var questionsProvider = Provider.of<QuestionsProvider>(ctx, listen: false);
+    var qList = questionsList[category.name];
+    qList?.forEach((q) {
+      List<Option> arrayOptions = [];
+
+      q['options'].forEach((opt) {
+        arrayOptions.add(Option(
+            id: uuid.v4(),
+            option: opt['option'],
+            correct: opt['correct'],
+            selected: false));
+      });
+
+      _questions.add(Question(
+          id: uuid.v4(),
+          question: q['question'],
+          options: arrayOptions,
+          explanation: '',
+          answered: false));
+    });
+    questionsProvider.questions = _questions;
   }
 }

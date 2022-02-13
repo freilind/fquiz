@@ -6,15 +6,15 @@ import 'package:fquiz/providers/category_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
-class QuizScreen extends StatefulWidget {
-  const QuizScreen({Key? key}) : super(key: key);
+class QuizScreen2 extends StatefulWidget {
+  const QuizScreen2({Key? key}) : super(key: key);
   static const routeName = '/quiz';
 
   @override
-  _QuizScreenState createState() => _QuizScreenState();
+  _QuizScreen2State createState() => _QuizScreen2State();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
+class _QuizScreen2State extends State<QuizScreen2> {
   var uuid = const Uuid();
   String _title = '';
   late List<Question> _questions = [];
