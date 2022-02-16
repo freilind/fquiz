@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fquiz/providers/auth_provider.dart';
 import 'package:fquiz/providers/category_provider.dart';
 import 'package:fquiz/providers/questions_provider.dart';
-import 'package:fquiz/screens/QuizScreen.dart';
 import 'package:fquiz/screens/home_screen.dart';
+import 'package:fquiz/screens/quiz_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
