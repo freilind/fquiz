@@ -37,12 +37,6 @@ class _GestureOptionState extends State<GestureOption> {
             }
           });
         }
-
-        if (widget.option.correct) {
-          print(widget.option.correct);
-        } else {
-          print(widget.option.correct);
-        }
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),

@@ -13,8 +13,8 @@ var questionsList = {
       'question': "[,,,].length",
       'options': [
         {'option': '0', 'correct': false},
-        {'option': '3', 'correct': false},
-        {'option': '4', 'correct': true},
+        {'option': '3', 'correct': true},
+        {'option': '4', 'correct': false},
         {'option': 'SyntaxError', 'correct': false}
       ]
     }

@@ -8,7 +8,7 @@ class QuizScreen extends StatelessWidget {
   QuizScreen({Key? key}) : super(key: key);
   static const routeName = '/quiz';
   late List<Question> _questions = [];
-  PageController controller = PageController(viewportFraction: 0.9);
+  final PageController _controller = PageController(viewportFraction: 0.9);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class QuizScreen extends StatelessWidget {
                   ),
                 ),
                 child: PageView.builder(
-                  controller: controller,
+                  controller: _controller,
                   scrollDirection: Axis.horizontal,
                   itemCount: _questions.length,
                   itemBuilder: (context, index) => SizedBox.expand(
@@ -53,6 +53,6 @@ class QuizScreen extends StatelessWidget {
   Future<void> _getQuestions(BuildContext context) async {
     var provider = Provider.of<QuestionsProvider>(context, listen: false);
     _questions = provider.questions;
-    provider.controller = controller;
+    provider.controller = _controller;
   }
 }

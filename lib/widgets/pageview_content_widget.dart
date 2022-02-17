@@ -12,8 +12,7 @@ class PageviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: [
+    return Column(children: [
       QuestionContainer(key: UniqueKey(), question: question),
       ...listOptions(context, question, index)
     ]);
@@ -25,7 +24,6 @@ class PageviewContent extends StatelessWidget {
       options.add(GestureOption(
           key: UniqueKey(), option: option, question: q, index: index));
     }
-    //options.shuffle();
-    return options;
+    return options..shuffle();
   }
 }
