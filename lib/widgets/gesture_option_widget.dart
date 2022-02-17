@@ -25,11 +25,16 @@ class _GestureOptionState extends State<GestureOption> {
     return GestureDetector(
       onTap: () {
         if (!widget.question.answered) {
-          var provider = Provider.of<QuestionsProvider>(context, listen: false);
-          provider.nextQuestion(widget.index);
           setState(() {
             widget.question.answered = true;
             widget.option.selected = true;
+            var provider =
+                Provider.of<QuestionsProvider>(context, listen: false);
+            provider.nextQuestion(context, widget.index);
+
+            if (widget.option.correct) {
+              provider.addCount();
+            }
           });
         }
 

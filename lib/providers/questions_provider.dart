@@ -3,11 +3,13 @@ import 'package:fquiz/data/questionsList.dart';
 import 'package:fquiz/models/option.dart';
 import 'package:fquiz/models/question.dart';
 import 'package:fquiz/providers/base_provider.dart';
+import 'package:fquiz/screens/result_screen.dart';
 import 'package:uuid/uuid.dart';
 
 class QuestionsProvider extends BaseProvider with ChangeNotifier {
   var uuid = const Uuid();
   late List<Question> _questions = [];
+  late int _correctAnswer = 0;
   PageController _controller = PageController();
 
   set controller(PageController value) {
@@ -21,12 +23,19 @@ class QuestionsProvider extends BaseProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  int get correctAnswer => _correctAnswer;
+
+  void addCount() {
+    _correctAnswer += 1;
+  }
+
   void notify() {
     notifyListeners();
   }
 
   Future<void> buildQuestion(String category) async {
-    _questions = [];
+    questions = [];
+    _correctAnswer = 0;
     var qList = questionsList[category];
     qList?.forEach((q) {
       List<Option> arrayOptions = [];
@@ -49,12 +58,29 @@ class QuestionsProvider extends BaseProvider with ChangeNotifier {
     questions = _questions;
   }
 
-  Future<void> nextQuestion(int index) async {
-    if (_questions.length != index + 1) {
+  Future<void> nextQuestion(BuildContext context, int index) async {
+    bool finish = isFinish();
+    if (finish) {
       Future.delayed(const Duration(seconds: 1), () {
+        Navigator.of(context).pushNamed(ResultScreen.routeName, arguments: '');
+      });
+    } else {
+      if (questions.length != index + 1) {
         _controller.animateToPage(index + 1,
             duration: const Duration(seconds: 1), curve: Curves.linear);
-      });
-    } else {}
+      }
+    }
+  }
+
+  bool isFinish() {
+    bool answer = true;
+    for (var question in questions) {
+      answer = answer && question.answered;
+    }
+    return answer;
+  }
+
+  int getResult() {
+    return correctAnswer;
   }
 }

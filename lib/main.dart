@@ -4,6 +4,7 @@ import 'package:fquiz/providers/category_provider.dart';
 import 'package:fquiz/providers/questions_provider.dart';
 import 'package:fquiz/screens/home_screen.dart';
 import 'package:fquiz/screens/quiz_screen.dart';
+import 'package:fquiz/screens/result_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -32,14 +33,18 @@ class MyApp extends StatelessWidget {
                       textTheme: ThemeData.light().textTheme.copyWith(
                           bodyText1: const TextStyle(
                               color: Colors.white, fontSize: 20.0),
+                          bodyText2: const TextStyle(
+                              color: Colors.white, fontSize: 32.0),
                           headline4: const TextStyle(
                               fontFamily: 'Pacifico',
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5))),
+                  debugShowCheckedModeBanner: false,
                   home: const HomeScreen(),
                   routes: {
                     QuizScreen.routeName: (_) => QuizScreen(),
+                    ResultScreen.routeName: (_) => ResultScreen()
                   }))),
     );
   }
