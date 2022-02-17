@@ -12,7 +12,8 @@ class PageviewContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
+    return Column(
+        children: [
       QuestionContainer(key: UniqueKey(), question: question),
       ...listOptions(context, question, index)
     ]);

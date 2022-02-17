@@ -31,10 +31,14 @@ class QuizScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: _questions.length,
                   itemBuilder: (context, index) => SizedBox.expand(
-                      child: PageviewContent(
-                          key: UniqueKey(),
-                          question: _questions[index],
-                          index: index)),
+                      child: SingleChildScrollView(
+                    primary: false,
+                    key: UniqueKey(),
+                    child: PageviewContent(
+                        key: UniqueKey(),
+                        question: _questions[index],
+                        index: index),
+                  )),
                 )),
             appBar: AppBar(
               title: Text('FQu!z',
