@@ -39,7 +39,8 @@ class MyApp extends StatelessWidget {
                               fontFamily: 'Pacifico',
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              letterSpacing: 0.5))),
+                              letterSpacing: 0.5),
+                          headline5: const TextStyle(fontSize: 26.0))),
                   debugShowCheckedModeBanner: false,
                   home: const HomeScreen(),
                   routes: {

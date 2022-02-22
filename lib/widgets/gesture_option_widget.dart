@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:fquiz/models/option.dart';
 import 'package:fquiz/models/question.dart';
@@ -39,22 +40,27 @@ class _GestureOptionState extends State<GestureOption> {
         }
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
-        padding: const EdgeInsets.all(20.0),
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: widget.question.answered
-                ? widget.option.selected
-                    ? widget.option.correct
-                        ? Colors.green
-                        : Colors.red
-                    : Theme.of(context).primaryColorLight
-                : Theme.of(context).primaryColorLight,
-            borderRadius: const BorderRadius.all(Radius.circular(10))),
-        child: Text(widget.option.option,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyText1),
-      ),
+          margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+          padding: const EdgeInsets.all(12.0),
+          constraints: const BoxConstraints(
+            minWidth: double.infinity,
+            maxHeight: 200.0,
+          ),
+          decoration: BoxDecoration(
+              color: widget.question.answered
+                  ? widget.option.selected
+                      ? widget.option.correct
+                          ? Colors.green
+                          : Colors.red
+                      : Theme.of(context).primaryColorLight
+                  : Theme.of(context).primaryColorLight,
+              borderRadius: const BorderRadius.all(Radius.circular(10))),
+          child: AutoSizeText(widget.option.option,
+              textAlign: widget.option.option.length < 25
+                  ? TextAlign.center
+                  : TextAlign.justify,
+              style: Theme.of(context).textTheme.bodyText1,
+              maxLines: 5)),
     );
   }
 }
