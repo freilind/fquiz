@@ -36,7 +36,7 @@ class ResultScreen extends StatelessWidget {
                   backgroundColor: Colors.red,
                   progressColor: Colors.green,
                   center: Text(
-                    "${correctAnswer / totalQuestions * 100} %",
+                    "${(correctAnswer / totalQuestions * 100).toStringAsFixed(2)} %",
                     style: Theme.of(context).textTheme.bodyText2,
                   ),
                   footer: Text("Result  FQu!z",

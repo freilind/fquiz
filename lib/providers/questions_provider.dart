@@ -11,6 +11,7 @@ class QuestionsProvider extends BaseProvider with ChangeNotifier {
   late List<Question> _questions = [];
   late int _correctAnswer = 0;
   PageController _controller = PageController();
+  final int quantity = 10;
 
   set controller(PageController value) {
     _controller = value;
@@ -36,8 +37,8 @@ class QuestionsProvider extends BaseProvider with ChangeNotifier {
   Future<void> buildQuestion(String category) async {
     questions = [];
     _correctAnswer = 0;
-    var qList = questionsList[category];
-    qList?.forEach((q) {
+    var qList = questionsList[category]?..shuffle();
+    qList?.take(quantity)?.forEach((q) {
       List<Option> arrayOptions = [];
 
       q['options'].forEach((opt) {
