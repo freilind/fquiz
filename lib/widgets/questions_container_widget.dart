@@ -4,7 +4,7 @@ import 'package:fquiz/models/question.dart';
 
 class QuestionContainer extends StatelessWidget {
   final Question question;
-  QuestionContainer({Key? key, required this.question}) : super(key: key);
+  const QuestionContainer({Key? key, required this.question}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,9 @@ class QuestionContainer extends StatelessWidget {
           textAlign: question.question.length < 25
               ? TextAlign.center
               : TextAlign.justify,
-          style: Theme.of(context).textTheme.headline5,
+          style: question.question.length < 25
+              ? Theme.of(context).textTheme.bodyText1
+              : Theme.of(context).textTheme.bodyText2,
           maxLines: 15),
     );
   }

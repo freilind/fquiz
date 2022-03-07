@@ -34,7 +34,7 @@ class QuizScreen extends StatelessWidget {
                       child: SingleChildScrollView(
                     primary: false,
                     key: UniqueKey(),
-                    child: PageviewContent(
+                    child: PageViewContent(
                         key: UniqueKey(),
                         question: _questions[index],
                         index: index),

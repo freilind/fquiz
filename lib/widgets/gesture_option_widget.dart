@@ -59,7 +59,9 @@ class _GestureOptionState extends State<GestureOption> {
               textAlign: widget.option.option.length < 25
                   ? TextAlign.center
                   : TextAlign.justify,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: widget.option.option.length < 25
+                  ? Theme.of(context).textTheme.headline5
+                  : Theme.of(context).textTheme.headline6,
               maxLines: 5)),
     );
   }

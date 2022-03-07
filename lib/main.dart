@@ -32,15 +32,20 @@ class MyApp extends StatelessWidget {
                       primaryColorDark: Colors.red,
                       textTheme: ThemeData.light().textTheme.copyWith(
                           bodyText1: const TextStyle(
-                              color: Colors.white, fontSize: 20.0),
+                              color: Colors.black, fontSize: 22.0),
                           bodyText2: const TextStyle(
+                              color: Colors.black, fontSize: 18.0),
+                          headline3: const TextStyle(
                               color: Colors.white, fontSize: 32.0),
                           headline4: const TextStyle(
                               fontFamily: 'Pacifico',
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 0.5),
-                          headline5: const TextStyle(fontSize: 26.0))),
+                          headline5: const TextStyle(
+                              color: Colors.white, fontSize: 22.0),
+                          headline6: const TextStyle(
+                              color: Colors.white, fontSize: 18.0))),
                   debugShowCheckedModeBanner: false,
                   home: const HomeScreen(),
                   routes: {

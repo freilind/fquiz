@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fquiz/data/questionsList.dart';
+import 'package:fquiz/data/questions_list.dart';
 import 'package:fquiz/models/option.dart';
 import 'package:fquiz/models/question.dart';
 import 'package:fquiz/providers/base_provider.dart';
@@ -11,7 +11,7 @@ class QuestionsProvider extends BaseProvider with ChangeNotifier {
   late List<Question> _questions = [];
   late int _correctAnswer = 0;
   PageController _controller = PageController();
-  final int quantity = 10;
+  final int quantity = 20;
 
   set controller(PageController value) {
     _controller = value;
@@ -38,7 +38,7 @@ class QuestionsProvider extends BaseProvider with ChangeNotifier {
     questions = [];
     _correctAnswer = 0;
     var qList = questionsList[category]?..shuffle();
-    qList?.take(quantity)?.forEach((q) {
+    qList?.take(quantity).forEach((q) {
       List<Option> arrayOptions = [];
 
       q['options'].forEach((opt) {

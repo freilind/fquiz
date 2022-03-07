@@ -4,10 +4,10 @@ import 'package:fquiz/widgets/questions_container_widget.dart';
 
 import 'gesture_option_widget.dart';
 
-class PageviewContent extends StatelessWidget {
+class PageViewContent extends StatelessWidget {
   final Question question;
   final int index;
-  PageviewContent({Key? key, required this.question, required this.index})
+  const PageViewContent({Key? key, required this.question, required this.index})
       : super(key: key);
 
   @override
