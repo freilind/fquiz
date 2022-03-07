@@ -1,3 +1,5 @@
+import 'package:fquiz/data/react_questions.dart';
+
 import 'html_questions.dart';
 import 'js_questions.dart';
 
@@ -5,7 +7,7 @@ var questionsList = {
   'javascript': [...jsQuestions],
   'angular': [],
   'database': [],
-  'react': [],
+  'react': [...reactQuestions],
   'html5': [...htmlQuestions],
   'aws': [
     {

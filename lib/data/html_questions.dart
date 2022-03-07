@@ -193,7 +193,8 @@ const htmlQuestions = [
       {'option': 'To display web page within a web page', 'correct': true},
       {'option': 'To display animation within a web page', 'correct': false},
       {'option': 'To display web page without browser', 'correct': false},
-      {'option': 'All', 'correct': false}
+      {'option': 'All', 'correct': false},
+      {'option': 'None', 'correct': false}
     ]
   },
   {
