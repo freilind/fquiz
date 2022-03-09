@@ -1,6 +1,7 @@
 import 'package:fquiz/data/java_questions.dart';
 import 'package:fquiz/data/mongo_questions.dart';
 import 'package:fquiz/data/react_questions.dart';
+import 'package:fquiz/data/spring_questions.dart';
 import 'package:fquiz/data/sql_questions.dart';
 
 import 'aws_questions.dart';
@@ -15,5 +16,5 @@ var questionsList = {
   'html5': [...htmlQuestions],
   'aws': [...awsQuestions],
   'java': [...javaQuestions],
-  'spring': [],
+  'spring': [...springQuestions],
 };
