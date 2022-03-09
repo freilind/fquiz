@@ -1,3 +1,4 @@
+import 'package:fquiz/data/angular_questions.dart';
 import 'package:fquiz/data/aws_questions.dart';
 import 'package:fquiz/data/html_questions.dart';
 import 'package:fquiz/data/java_questions.dart';
@@ -10,11 +11,12 @@ import 'package:fquiz/data/sql_questions.dart';
 
 var questionsList = {
   'javascript': [...jsQuestions, ...nodeQuestions],
-  'angular': [],
+  'angular': [...angularQuestions],
   'database': [...sqlQuestions, ...mongoQuestions],
   'react': [...reactQuestions],
   'html5': [...htmlQuestions],
   'aws': [...awsQuestions],
   'java': [...javaQuestions],
-  'spring': [...springQuestions]
+  'spring': [...springQuestions],
+  '': []
 };
