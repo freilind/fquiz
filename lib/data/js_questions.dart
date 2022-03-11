@@ -119,7 +119,7 @@ const jsQuestions = [
   },
   {
     'question':
-        '''let obj = {name:"Vivek",surname:"Bisht"};\nlet obj2=obj;\nobj.name="Akki";\nconsole.log(obj2);''',
+        '''let obj = {name:"Vivek", surname:"Bisht"};\nlet obj2=obj;\nobj.name="Akki";\nconsole.log(obj2);''',
     'options': [
       {'option': '{name:"Vivek",surname:"Bisht"}', 'correct': false},
       {'option': 'undefined', 'correct': false},

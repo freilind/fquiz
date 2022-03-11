@@ -25,7 +25,7 @@ class QuizScreen extends StatelessWidget {
             body: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage("/images/back.png"),
+                    image: AssetImage("assets/images/back.png"),
                     fit: BoxFit.cover,
                   ),
                 ),
